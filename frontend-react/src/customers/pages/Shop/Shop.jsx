@@ -80,14 +80,12 @@ const Shop = () => {
 
   
   useEffect(()=>{
-    const timeout = setTimeout(() => {
+   
       if (shop.shop?.address.latitude && shop.shop?.address.longitude) {
         setPosition([shop.shop?.address.latitude, shop.shop?.address.longitude]);
         setLoading(false);
       }
-    }, 3000); // One second delay
-  
-    return () => clearTimeout(timeout); 
+ 
   },[shop]);
   const handleFilter = (e, value) => {
     const searchParams = new URLSearchParams(location.search);
