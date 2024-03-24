@@ -27,9 +27,7 @@ import com.Community_cart.service.CategoryService;
 import com.Community_cart.service.ProductService;
 import com.Community_cart.service.ShopService;
 import com.Community_cart.service.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/admin/product")
 public class AdminProductListItemController {
