@@ -27,7 +27,9 @@ import com.Community_cart.request.CreateOrderRequest;
 import com.Community_cart.service.OrderService;
 import com.Community_cart.service.UserService;
 import com.stripe.exception.StripeException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminOrderController {
