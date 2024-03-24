@@ -85,7 +85,7 @@ const Shop = () => {
         setPosition([shop.shop?.address.latitude, shop.shop?.address.longitude]);
         setLoading(false);
       }
-    }, 1000); // One second delay
+    }, 3000); // One second delay
   
     return () => clearTimeout(timeout); 
   },[shop]);
