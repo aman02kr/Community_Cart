@@ -1,0 +1,51 @@
+.productList-item-card {
+    margin-bottom: 20px;
+    border: 2px solid #ccc; /* Add colored border */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+
+  }
+  
+  .productList-item-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .productList-item-image {
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius:5%; /* Make the image circular */
+
+  }
+  .productList-item-details {
+    max-width: 200px;
+  }
+  
+  .productList-item-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #000000; /* Text color */
+  }
+  
+  .productList-item-price {
+    margin-bottom: 5px;
+    color: #000000; /* Text color */
+  }
+  
+  .productList-item-description {
+    color: #000000; /* Text color */
+  }
+  
+  .ingredient-category {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000000; /* Text color */
+  }
+  
+  .add-to-cart-button {
+    margin-top: 10px;
+  }
+ 
