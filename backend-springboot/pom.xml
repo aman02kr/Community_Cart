@@ -11,8 +11,8 @@
 	<groupId>com.Community_Cart</groupId>
 	<artifactId>Community_Cart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Community_Cart</name>
-	<description>online product delivery system</description>
+	<name>CommunityCart</name>
+	<description>hyper local App </description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
