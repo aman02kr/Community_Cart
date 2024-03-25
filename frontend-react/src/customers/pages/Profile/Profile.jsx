@@ -10,12 +10,12 @@ import Notifications from "./Notifications";
 
 const Profile = () => {
   return (
-    <div className="lg:flex justify-between">
-      <div className="sticky h-[80vh] lg:w-[20%]">
-        <ProfileNavigation />
-      </div>
+    <div className="">
+      <div className="flex justify-center">
+     <ProfileNavigation />
+    </div>
       {/* <Divider orientation="vertical" flexItem /> */}
-      <div className="lg:w-[80%]">
+      <div className="">
         <Routes>
         <Route path="/" element={<UserProfile/>} />
           <Route path="/orders" element={<Orders/>} />
@@ -24,7 +24,9 @@ const Profile = () => {
           <Route path="/payments" element={<Orders/>} />
           <Route path="/notification" element={<Notifications/>} />
         </Routes>
+       
       </div>
+     
     </div>
   );
 };
