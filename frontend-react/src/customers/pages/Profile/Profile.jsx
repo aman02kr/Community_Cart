@@ -7,7 +7,7 @@ import UsersAddresses from "../UsersAdresses/UsersAddresses";
 import Favorite from "../Favorite/Favorite";
 import UserProfile from "./UserProfile";
 import Notifications from "./Notifications";
-
+import OrderDetails from "../../components/Order/OrderDetail";
 const Profile = () => {
   return (
     <div className="">
@@ -23,6 +23,8 @@ const Profile = () => {
           <Route path="/favorites" element={<Favorite/>} />
           <Route path="/payments" element={<Orders/>} />
           <Route path="/notification" element={<Notifications/>} />
+          <Route path="/order-details/:orderId" element={<OrderDetails />} />
+
         </Routes>
        
       </div>

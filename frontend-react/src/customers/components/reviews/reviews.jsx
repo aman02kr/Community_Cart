@@ -151,7 +151,7 @@ const ReviewComponent = ({ shopId, token ,customerId}) => {
 <br/>
 <br/>
 
-<div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+<div style={{ maxHeight: '60vh', overflowY: 'auto'  }}>
     
   {filteredReview.map((review, index) => (
     <Card key={index} className="mx-auto" style={{ maxWidth: '80vw', marginBottom: '5vw' }}>
