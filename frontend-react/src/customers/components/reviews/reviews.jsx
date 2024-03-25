@@ -6,7 +6,7 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-const ReviewComponent = ({ shopId, token }) => {
+const ReviewComponent = ({ shopId, token ,customerId}) => {
     const [reviews, setReviews] = useState([]);
     const [averageRating, setAverageRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
@@ -34,21 +34,21 @@ const ReviewComponent = ({ shopId, token }) => {
         fetchReviews();
     }, [shopId, token]);
 
-    const handleNextReview = () => {
-        setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % filteredReview.length);
-      };
+    // const handleNextReview = () => {
+    //     setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % filteredReview.length);
+    //   };
     
-      const handlePreviousReview = () => {
-        setCurrentReviewIndex((prevIndex) => (prevIndex - 1 + filteredReview.length) % filteredReview.length);
-      };
+    //   const handlePreviousReview = () => {
+    //     setCurrentReviewIndex((prevIndex) => (prevIndex - 1 + filteredReview.length) % filteredReview.length);
+    //   };
     
-    useEffect(() => {
-        setCurrentReview(filteredReview[currentReviewIndex]);
-      }, [currentReviewIndex]);
+    // useEffect(() => {
+    //     setCurrentReview(filteredReview[currentReviewIndex]);
+    //   }, [currentReviewIndex]);
     
-      useEffect(() => {
-        setCurrentReview(filteredReview[currentReviewIndex]);
-      }, []);
+    //   useEffect(() => {
+    //     setCurrentReview(filteredReview[currentReviewIndex]);
+    //   }, []);
 
     const handleSubmitReview = async (e) => {
         e.preventDefault();
@@ -67,6 +67,10 @@ const ReviewComponent = ({ shopId, token }) => {
             setReviews([...reviews, response.data]);
             setReviewText('');
             setRating(0);
+            
+            window.location.reload();
+
+
         } catch (error) {
             setError('Error submitting review');
             console.error('Error submitting review:', error);
@@ -125,7 +129,7 @@ const ReviewComponent = ({ shopId, token }) => {
     <br/>
     <Grid container spacing={2}>
     {reviews
-    .filter(review => review.shopIdd === shopId) // Add filtering based on shopId
+    .filter(review => (review.shopIdd === shopId && review.customer.id === customerId) ) // Add filtering based on shopId
     .map((review) => (
         <Grid item key={review.id} xs={12} sm={6} md={4}>
             <Card variant="outlined">
@@ -142,26 +146,30 @@ const ReviewComponent = ({ shopId, token }) => {
     </Grid>
     
 </Container>
-<Card className="mx-auto" style={{ maxWidth: '80vw' ,marginBottom:'5vw'}}>
+<Container className="mx-auto" style={{ display: 'flex', flexDirection: 'column', width: '80vw', height: 'auto', margin: '10vw',padding:"2vw" }}>
+<Typography style={{ fontSize: '1.5rem' }}>Others Rating & Reviews</Typography>
+<br/>
+<br/>
+
+<div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+    
+  {filteredReview.map((review, index) => (
+    <Card key={index} className="mx-auto" style={{ maxWidth: '80vw', marginBottom: '5vw' }}>
       <CardContent>
-      <Typography variant="h6"> Others Rating & Reviews</Typography>
-        {currentReview && (
-          <div>
-            <Typography variant="body1"> <AccountCircleIcon/>&nbsp;{currentReview.customer.fullName}</Typography>
-        <Rating name="half-rating" value={currentReview.rating} precision={0.5} readOnly />
-            <Typography variant="body1">{currentReview.message}</Typography>
-          </div>
-        )}
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-          <Button variant="contained" onClick={handlePreviousReview}>
-            <ArrowBackIcon />
-          </Button>
-          <Button  variant="contained"onClick={handleNextReview}>
-            <ArrowForwardIcon />
-          </Button>
+        <div>
+          <Typography variant="body1"> <AccountCircleIcon/>&nbsp;{review.customer.fullName}</Typography>
+          <Rating name="half-rating" value={review.rating} precision={0.5} readOnly />
+          <Typography variant="body1">{review.message}</Typography>
+          <Typography variant="body1">{review.createdAt}</Typography>
+
+
         </div>
       </CardContent>
     </Card>
+    
+  ))}
+</div>
+</Container>
     </>
     
 );

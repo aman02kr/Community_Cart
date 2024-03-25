@@ -88,7 +88,7 @@
 // };
 
 // export default LocationComponent;
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LocalAtmOutlined, Room, Search } from '@mui/icons-material';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Typography } from '@mui/material';
 import './findLocation.css'; 
@@ -151,6 +151,12 @@ const LocationComponent = () => {
             setError('An error occurred while fetching address.');
         }
     };
+    useEffect(() => {
+       
+if(!localStorage.getItem('user-address-name'))   {
+    setOpen(true);
+}   
+}, [localStorage.getItem('jwt')]);
 
     const handleSearchLocation = () => {
         if (inputLocation.trim() !== '') {

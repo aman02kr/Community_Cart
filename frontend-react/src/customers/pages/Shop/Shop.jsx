@@ -46,7 +46,7 @@ const Shop = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { id } = useParams();
-  const { shop, productList } = useSelector((store) => store);
+  const { shop, productList,auth } = useSelector((store) => store);
   const navigate = useNavigate();
 
   const decodedQueryString = decodeURIComponent(location.search);
@@ -80,12 +80,14 @@ const Shop = () => {
 
   
   useEffect(()=>{
-   
+    const timeout = setTimeout(() => {
       if (shop.shop?.address.latitude && shop.shop?.address.longitude) {
         setPosition([shop.shop?.address.latitude, shop.shop?.address.longitude]);
         setLoading(false);
       }
- 
+    }, 1000); // One second delay
+  
+    return () => clearTimeout(timeout); 
   },[shop]);
   const handleFilter = (e, value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -238,7 +240,7 @@ const Shop = () => {
         </div>
       </CardContent>
     </Card> */}
-    <ReviewComponent shopId={shop.shop?.id} token={localStorage.getItem("jwt")}/>
+    <ReviewComponent shopId={shop.shop?.id} customerId={auth.user?.id}token={localStorage.getItem("jwt")}/>
 
     
 <Footer/>
