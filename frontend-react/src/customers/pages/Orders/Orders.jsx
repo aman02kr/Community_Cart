@@ -28,7 +28,7 @@ const Orders = () => {
     <div className='flex items-center flex-col'>
       <h1 className='text-xl text-center py-7 font-semibold'>My Orders</h1>
       <div className='space-y-5 w-full lg:w-auto ml-[5%] mr-[5%]'>
-        <TableContainer component={Paper} sx={{ maxHeight: '60vh', overflowY: 'auto' }}>
+        <TableContainer component={Paper} sx={{ maxHeight: '60vh', minWidth:'80vw', overflowY: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
