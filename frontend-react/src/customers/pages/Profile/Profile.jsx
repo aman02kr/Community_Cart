@@ -1,5 +1,4 @@
 import React from "react";
-import ProfileNavigation from "../../components/ProfileNavigation/ProfileNavigation";
 import { Divider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Orders from "../Orders/Orders";
@@ -11,11 +10,6 @@ import OrderDetails from "../../components/Order/OrderDetail";
 const Profile = () => {
   return (
     <div className="">
-      <div className="flex justify-center">
-     <ProfileNavigation />
-    </div>
-      {/* <Divider orientation="vertical" flexItem /> */}
-      <div className="">
         <Routes>
         <Route path="/" element={<UserProfile/>} />
           <Route path="/orders" element={<Orders/>} />
@@ -27,7 +21,6 @@ const Profile = () => {
 
         </Routes>
        
-      </div>
      
     </div>
   );

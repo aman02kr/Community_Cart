@@ -21,6 +21,9 @@ const Orders = () => {
     navigate(`/my-profile/order-details/${order.id}`, { state: { order } });
   };
 
+  // Sort orders in descending order based on IDs
+  const sortedOrders = [...order.orders].sort((a, b) => b.id - a.id);
+
   return (
     <div className='flex items-center flex-col'>
       <h1 className='text-xl text-center py-7 font-semibold'>My Orders</h1>
@@ -36,16 +39,20 @@ const Orders = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {order.orders.map((order) => order.items.map((item) =>
+              {sortedOrders.map((order) => (
                 <TableRow key={order.id} onClick={() => handleOrderClick(order)}>
                   <TableCell>{order.id}</TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-5" style={{ width: '30vw' }}>
-                      <img className="h-16 w-16" src={item.product?.images[0]} alt="" />
+                      {order.items[0].product.images[0] && (
+                        <img className="h-16 w-16" src={order.items[0].product.images[0]} alt="" />
+                      )}
                       <div>
-                        <p>{item.product?.name}</p>
-                        <p className="font-bold">₹{item.product?.price}</p>
-                        <p className="text-black-400">{item.product?.shop.name}</p>
+                        <p>{order.items[0].product.name}{order.items.length > 1 && (
+                          <p>+{order.items.length - 1} more</p>
+                        )}</p>
+                        <p className="font-bold">₹{order.totalAmount}</p>
+                        <p className="text-black-400">{order.items[0].product.shop.name}</p>
                       </div>
                     </div>
                   </TableCell>
@@ -57,8 +64,6 @@ const Orders = () => {
           </Table>
         </TableContainer>
       </div>
-      {/* Render the OrderDetailsModal component if selectedOrder is not null */}
-      {/* {selectedOrder && <OrderDetailsModal order={selectedOrder} onClose={() => setSelectedOrder(null)} />} */}
     </div>
   );
 }
