@@ -156,7 +156,7 @@ const LocationComponent = () => {
 if(!localStorage.getItem('user-address-name'))   {
     setOpen(true);
 }   
-}, [localStorage.getItem('jwt')]);
+}, []);
 
     const handleSearchLocation = () => {
         if (inputLocation.trim() !== '') {
@@ -196,10 +196,24 @@ if(!localStorage.getItem('user-address-name'))   {
     };
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <>
+        <div  onClick={handleClickOpen} style={{ display: 'flex', alignItems: 'center' }}>
             
-            <Room sx={{ color: '#d918f3', cursor: 'pointer' }} onClick={handleClickOpen} />
-            <Dialog
+            <Room sx={{ color: '#d918f3', cursor: 'pointer' }}  />
+
+           
+            
+           {localStorage.getItem('user-address-name') ? (
+  <p className="underline">{localStorage.getItem('user-address-name')}</p>
+) : (
+  error ? (
+    <p>{error}</p>
+  ) : (
+    <p>Please select a location</p>
+  )
+)}
+        </div>
+         <Dialog
                open={open}
                onClose={handleClose}
                anchorEl={anchorEl} 
@@ -250,10 +264,7 @@ if(!localStorage.getItem('user-address-name'))   {
                     <Button onClick={handleDialogClose}>No</Button>
                 </DialogActions>
             </Dialog>
-            
-            {localStorage.getItem('user-address-name') && <p className="underline">{localStorage.getItem('user-address-name')}</p>}
-      {error && <p>{error}</p>}
-        </div>
+            </>
     );
 };
 
