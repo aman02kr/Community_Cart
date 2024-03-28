@@ -183,12 +183,11 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        <div className="lg:w-[80%] space-y-5 lg:pl-10">
-          {productList?.productListItems.map((item) => (
-            <ProductListItemCard item={item} />
-            // <p>ashok</p>
-          ))}
-        </div>
+        <div className="lg:w-[80%] h-[80vh] overflow-y-auto space-y-5 lg:pl-10"> {/* Fixed height with scroll */}
+      {productList?.productListItems.map((item) => (
+        <ProductListItemCard key={item.id} item={item} />
+      ))}
+    </div>
       </section>
     </div>
     <Backdrop
