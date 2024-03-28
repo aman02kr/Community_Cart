@@ -10,6 +10,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import Logo from './Logo.png';
+import Alternatelogo  from './Alternatelogo.png';
 import LocationComponent from "../Geolocation/findLocation";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
@@ -33,6 +34,7 @@ const Navbar = () => {
   const location = useLocation();
   const { auth, cart } = useSelector((store) => store);
   const dispatch = useDispatch();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -58,6 +60,17 @@ const Navbar = () => {
 
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div className="px-5 z-50 py-[.8rem] bg-[#7132F9]  lg:px-20 flex justify-between">
       <div className="flex items-center space-x-4">
@@ -65,8 +78,11 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           className="lg:mr-10 cursor-pointer flex items-center space-x-4"
         >
-          <img src={Logo} style={{width:"150px",height:"25"}} alt="Logo" />
-          <LocationComponent/>
+ {screenWidth < 600 ? (
+        <img src={Alternatelogo} style={{ width: "50px", height: "25px" }} alt="Alternate Logo" />
+      ) : (
+        <img src={Logo} style={{ width: "150px", height: "25px" }} alt="Logo" />
+      )}          <LocationComponent/>
         </div>
       </div>
       <div className="flex items-center space-x-2 lg:space-x-10">
