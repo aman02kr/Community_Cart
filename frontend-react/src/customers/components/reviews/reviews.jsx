@@ -93,7 +93,7 @@ const ReviewComponent = ({ shopId, token ,customerId}) => {
 
     return (
         <>
-    <Container className="mx-auto" style={{ display: 'flex', flexDirection: 'column', width: '80vw', height: 'auto', margin: '10vw',padding:"2vw" }}>
+    <Container className="mx-auto" style={{ display: 'flex', flexDirection: 'column', width: '90vw', height: 'auto', margin: '5vw',padding:"2vw" }}>
    
     <Typography variant="h6"> <ReviewsIcon/>&nbsp;Rating & Reviews</Typography>
     
@@ -108,7 +108,7 @@ const ReviewComponent = ({ shopId, token ,customerId}) => {
             variant="outlined"
             multiline
             rows={4}
-            style={{width:"70vw"}}
+            style={{width:"80vw"}}
         />
         <br/>
         <br/>
@@ -146,7 +146,7 @@ const ReviewComponent = ({ shopId, token ,customerId}) => {
     </Grid>
     
 </Container>
-<Container className="mx-auto" style={{ display: 'flex', flexDirection: 'column', width: '80vw', height: 'auto', margin: '10vw',padding:"2vw" }}>
+<Container className="mx-auto" style={{ display: 'flex', flexDirection: 'column', width: '90vw', height: 'auto', margin: '5vw',padding:"2vw" }}>
 <Typography style={{ fontSize: '1.5rem' }}>Others Rating & Reviews</Typography>
 <br/>
 <br/>
