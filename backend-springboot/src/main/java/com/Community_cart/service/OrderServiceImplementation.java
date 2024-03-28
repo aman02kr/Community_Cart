@@ -64,10 +64,20 @@ public class OrderServiceImplementation implements OrderService {
 	    
 	    Address savedAddress = addressRepository.save(shippAddress);
 	    
-	    if(!user.getAddresses().contains(savedAddress)) {
-	    	user.getAddresses().add(savedAddress);
-	    }
-	    
+		boolean addressExists = false;
+		for (Address userAddress : user.getAddresses()) {
+			// Compare each attribute of the addresses
+			if (areAddressesEqual(userAddress, savedAddress)) {
+				addressExists = true;
+				break;
+			}
+		}
+	
+		// If the address doesn't exist in the user's addresses, add it
+		if (!addressExists) {
+			user.getAddresses().add(savedAddress);
+		}
+	
 		
 		System.out.println("user addresses --------------  "+user.getAddresses());
 		   
@@ -182,6 +192,14 @@ public class OrderServiceImplementation implements OrderService {
 		
 	}
 	
+	private boolean areAddressesEqual(Address address1, Address address2) {
+		return address1.getFullName().equals(address2.getFullName()) &&
+			   address1.getStreetAddress().equals(address2.getStreetAddress()) &&
+			   address1.getCity().equals(address2.getCity()) &&
+			   address1.getState().equals(address2.getState()) &&
+			   address1.getPostalCode().equals(address2.getPostalCode()) &&
+			   address1.getCountry().equals(address2.getCountry());
+	}
 	
 
 }
