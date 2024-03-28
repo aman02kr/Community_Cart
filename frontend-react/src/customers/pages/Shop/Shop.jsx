@@ -183,7 +183,7 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        <div className="lg:w-[80%] h-[80vh] overflow-y-auto space-y-5 lg:pl-10"> {/* Fixed height with scroll */}
+        <div className="lg:w-[85%]  overflow-y-auto space-y-5 lg:pl-10" style={{maxHeight:"100vh"}} > {/* Fixed height with scroll */}
       {productList?.productListItems.map((item) => (
         <ProductListItemCard key={item.id} item={item} />
       ))}
