@@ -101,6 +101,30 @@ const LocationComponent = () => {
     const [loc_name, setLocName] = useState("location");
     const [inputLocation, setInputLocation] = useState('');
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [suggestions, setSuggestions] = useState([]); // State to hold address suggestions
+    const fetchLocationSuggestions = async (query) => {
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json`);
+            if (response.ok) {
+                const data = await response.json();
+                setSuggestions(data); // Update suggestions state with fetched data
+            } else {
+                setSuggestions([]); // Clear suggestions if fetch fails
+            }
+        } catch (error) {
+            setSuggestions([]); // Clear suggestions if an error occurs
+        }
+    };
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setInputLocation(value);
+        fetchLocationSuggestions(value); // Fetch suggestions based on user input
+    };
+
+    const handleSuggestionClick = (selectedAddress) => {
+        setInputLocation(selectedAddress.display_name); // Update input field with selected address
+        setSuggestions([]); // Clear suggestions
+    };
 
     const fetchLocationByQuery = async () => {
         try {
@@ -178,9 +202,7 @@ if(!localStorage.getItem('user-address-name'))   {
         );
     };
 
-    const handleInputChange = (event) => {
-        setInputLocation(event.target.value);
-    };
+
 
     const handleClickOpen = (event) => {
         setAnchorEl(event.currentTarget); 
@@ -233,26 +255,51 @@ if(!localStorage.getItem('user-address-name'))   {
             >
                 <DialogTitle>Choose Location</DialogTitle>
                 <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Button onClick={handleCurrentLocation} variant="contained" style={{ marginBottom: '1rem' }}>Use Current Location</Button>
-                    <Typography variant="subtitle1" style={{ marginBottom: '1rem',  }}><p style={{ textAlign: 'center' }}>OR</p></Typography>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label="Enter Location"
-                        type="text"
-                        fullWidth
-                        value={inputLocation}
-                        onChange={handleInputChange}
-                        style={{ marginBottom: '1rem' }}
-                    />
-                    {localStorage.getItem('user-address-name') && (
-                        <Typography><Room/>{localStorage.getItem('user-address-name')}</Typography>
-                    )}
-                    {error && <Typography>{error}</Typography>}
-                </DialogContent>
+    <Button onClick={handleCurrentLocation} variant="contained" style={{ marginBottom: '1rem' }}>Use Current Location</Button>
+    <Typography variant="subtitle1" style={{ marginBottom: '1rem', textAlign: 'center' }}>OR</Typography>
+    <TextField
+        autoFocus
+        margin="dense"
+        label="Enter Location"
+        type="text"
+        fullWidth
+        value={inputLocation}
+        onChange={handleInputChange}
+        style={{ marginBottom: '1rem' }}
+    />
+    <div style={{ position: 'relative' }}>
+        {suggestions.length > 0 && (
+            <ul style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                zIndex: 9999,
+                listStyleType: 'none',
+                backgroundColor: '#fff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '4px',
+                padding: '0.5rem',
+                margin: 0,
+                width: '100%',
+            }}>
+                {suggestions.map((suggestion, index) => (
+                    <li key={index} onClick={() => handleSuggestionClick(suggestion)} style={{ cursor: 'pointer', padding: '0.5rem 0', borderBottom: '1px solid #ddd' }}>
+                        {suggestion.display_name}
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
+    {localStorage.getItem('user-address-name') && (
+        <Typography><Room/>{localStorage.getItem('user-address-name')}</Typography>
+    )}
+    {error && <Typography>{error}</Typography>}
+</DialogContent>
+
+
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSearchLocation} variant="contained"><Search /> Search</Button> 
+                    <Button onClick={handleSearchLocation} variant="contained"> Ok</Button> 
                 </DialogActions>
             </Dialog>
             <Dialog open={dialogOpen} onClose={handleDialogClose}>
